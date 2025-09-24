@@ -3,7 +3,7 @@
 AMI_ID="ami-09c813fb71547fc4f"
 SG_ID="sg-0e84bdd3fbd61aac4" # replace with your SG ID
 ZONE_ID="Z00567342XXYQ4M01AREL" # replace with your ID
-DOMAIN_NAME="bharathagaveni.fun"
+DOMAIN_NAME="bharathgaveni.fun"
 
 for instance in $@ # mongodb redis mysql
 do
