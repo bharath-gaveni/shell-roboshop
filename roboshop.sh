@@ -1,9 +1,9 @@
 #!/bin/bash
 
 AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-07c8acf3fa6b923fa" # replace with your SG ID
-ZONE_ID="Z0948150OFPSYTNVYZOY" # replace with your ID
-DOMAIN_NAME="daws86s.fun"
+SG_ID="sg-0e84bdd3fbd61aac4" # replace with your SG ID
+ZONE_ID="Z00567342XXYQ4M01AREL" # replace with your ID
+DOMAIN_NAME="bharathagaveni.fun"
 
 for instance in $@ # mongodb redis mysql
 do
