@@ -34,15 +34,17 @@ instance_id=$(aws ec2 run-instances \
 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $Host_zone \
-    --change-batch "{
+    --change-batch '{
         "Changes": [{
             "Action": "UPSERT",
             "ResourceRecordSet": {
-                "Name": "$Record_name",
+                "Name": "'$Record_name'",
                 "Type": "A",
                 "TTL": 1,
-                "ResourceRecords": [{ "Value": "$IP" }]
+                "ResourceRecords": [{ "Value": "'$IP'" }]
             }
         }]
-    }"
+    }'
+
+
 done
