@@ -1,14 +1,13 @@
 #!/bin/bash
-
 AMI_ID=ami-09c813fb71547fc4f
 SG_ID=sg-0e84bdd3fbd61aac4
-DNS=bharathgaveni.fun
 Host_zone=Z00567342XXYQ4M01AREL
+DNS=bharathgaveni.fun
 
 for instance in "$@"
 do
 
-instance_id=$(aws ec2 run-instances \
+ instance_id=$(aws ec2 run-instances \
     --image-id $AMI_ID \
     --instance-type t3.micro \
     --security-group-ids $SG_ID \
@@ -17,20 +16,19 @@ instance_id=$(aws ec2 run-instances \
     --output text)
 
     if [ "$instance" != "frontend" ]; then
-       IP=$(aws ec2 describe-instances \
+        IP=$(aws ec2 describe-instances \
     --instance-ids $instance_id \
     --query "Reservations[0].Instances[0].PrivateIpAddress" \
     --output text)
-        Record_name="$instance.$DNS"
+        Record_name=$instance.$DNS
     else
         IP=$(aws ec2 describe-instances \
     --instance-ids $instance_id \
     --query "Reservations[0].Instances[0].PublicIpAddress" \
     --output text)
-    Record_name="$DNS"
+        Record_name=$DNS
     fi
-
-    echo "$instance :$IP"
+    echo "$instance : $IP"
 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $Host_zone \
