@@ -13,7 +13,7 @@ if [ $id -ne 0 ]; then
 fi
 log_folder=/var/log/roboshop-script
 script_name=$(echo $0 | cut -d "." -f1)
-log_file=$($log_folder/$script_name.log)
+log_file=$log_folder/$script_name.log
  echo "script execution start at time $(date)"
  mkdir -p $log_folder
 Validate() {
@@ -28,16 +28,21 @@ Validate() {
 cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo
 Validate $? "copying the mongo.repo"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y &>>$log_file
 Validate $? "installing mongodb" 
 
-systemctl enable mongod
+systemctl enable mongod &>>$log_file
 Validate $? "enabled mongodb"
 
-systemctl start mongod 
+systemctl start mongod &>>$log_file
 Validate $? "started mongodb"
 
 sed 's/127.0.0.1/0.0.0.0' /etc/mongod.conf
+Validate $? "Allowing the remote connections to Mongodb"
+
+systemctl restart mongod &>>$log_file
+Validate $? "Restarted mongodb"
+
 
 
 
