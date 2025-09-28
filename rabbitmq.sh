@@ -29,19 +29,19 @@ validate() {
     fi        
 }
 
-cp $Dir_name/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+cp $Dir_name/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$log_file
 validate $? "copying the repo"
 
-dnf install rabbitmq-server -y
+dnf install rabbitmq-server -y &>>$log_file
 validate $? "installing the rabbitmq"
 
-systemctl enable rabbitmq-server
+systemctl enable rabbitmq-server &>>$log_file
 validate $? "enabling the rabbitmq"
 
-systemctl start rabbitmq-server
+systemctl start rabbitmq-server &>>$log_file
 validate $? "start the rabbitmq"
 
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 
 validate $? "setting user and password"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
