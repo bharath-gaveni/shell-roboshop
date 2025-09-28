@@ -41,8 +41,13 @@ validate $? "enabling the rabbitmq"
 systemctl start rabbitmq-server &>>$log_file
 validate $? "start the rabbitmq"
 
-rabbitmqctl add_user roboshop roboshop123 
+id roboshop &>>$log_file
+if [ $? -ne 0 ]; then
+rabbitmqctl add_user roboshop roboshop123 &>>$log_file
 validate $? "setting user and password"
+else
+    echo "User already exists
+fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 validate $? "setting up permissions to take que message from all components"
