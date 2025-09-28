@@ -30,7 +30,7 @@ validate() {
     fi        
 }
 
-dnf install maven -y
+dnf install maven -y &>>$log_file
 validate $? "installing maven which also install java"
 
 mkdir -p /app &>>$log_file
