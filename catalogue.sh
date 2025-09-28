@@ -82,7 +82,7 @@ dnf install mongodb-mongosh -y &>>$log_file
 validate $? "installing mongodb cilent to connect with mongodb DB"
 
 index=$(mongosh bharathgaveni.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')") &>>$log_file
-if [ index -le 0 ]; then
+if [ $index -le 0 ]; then
 mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js
 else
     echo "Database is already loaded with Catalogue DB products"
