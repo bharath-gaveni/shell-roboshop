@@ -4,6 +4,7 @@ R="\e[0;31m"
 G="\e[0;32m"
 Y="\e[0;33m"
 Dir_name=$PWD
+Host_name=mongodb.bharathgaveni.fun
 
 id=$(id -u)
 if [ $id -ne 0 ]; then
@@ -81,9 +82,9 @@ validate $? "copying the mongo.repo"
 dnf install mongodb-mongosh -y &>>$log_file
 validate $? "installing mongodb cilent to connect with mongodb DB"
 
-index=$(mongosh mongodb.bharathgaveni.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+index=$(mongosh $Host_name --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 if [ $index -le 0 ]; then
-mongosh --host mongodb.bharathgaveni.fun </app/db/master-data.js
+mongosh --host $Host_name </app/db/master-data.js
 else
     echo "Database is already loaded with Catalogue DB products"
 fi
