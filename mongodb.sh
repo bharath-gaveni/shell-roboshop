@@ -27,7 +27,7 @@ validate() {
     fi        
 }
 
-cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo $log_file
+cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
 validate $? "Copying the mongo.repo" 
 
 dnf install mongodb-org -y &>>$log_file
