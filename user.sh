@@ -3,7 +3,7 @@ N="\e[0m"
 R="\e[0;31m"
 G="\e[0;32m"
 Y="\e[0;33m"
-
+Dir_name=$PWD
 id=$(id -u)
 if [ $id -ne 0 ]; then
     echo -e "$R please run this script with root user $N"
