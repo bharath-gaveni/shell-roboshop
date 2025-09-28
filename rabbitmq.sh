@@ -44,7 +44,7 @@ validate $? "start the rabbitmq"
 rabbitmqctl add_user roboshop roboshop123 &>>$log_file
 validate $? "setting user and password"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" 
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
 validate $? "setting up permissions to take que message from all components"
 
 end_time=$(date +%s)
