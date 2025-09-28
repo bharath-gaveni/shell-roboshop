@@ -51,10 +51,10 @@ validate $? "unzip the shipping code in app directory"
 cd /app &>>$log_file
 validate $? "changing to app directory"
 
-mvn clean package 
+mvn clean package &>>$log_file
 validate $? "install dependecies and package application in to .jar file"
 
-mv target/shipping-1.0.jar shipping.jar 
+mv target/shipping-1.0.jar shipping.jar &>>$log_file
 validate $? "moving the .jar file to current directory means /app"
 
 id roboshop &>>$log_file
@@ -76,7 +76,7 @@ validate $? "enabled the shipping"
 systemctl start shipping &>>$log_file
 validate $? "started the shipping"
 
-dnf install mysql -y 
+dnf install mysql -y &>>$log_file
 validate $? "installing mysql client to load data to mysql DB"
 
 mysql -h $Host_name -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
@@ -88,7 +88,7 @@ else
     echo "Shipping data is already loaded"
 fi       
 
-systemctl restart shipping
+systemctl restart shipping &>>$log_file
 validate $? "Restarting the shipping"
 
 end_time=$(date +%s)
