@@ -40,5 +40,9 @@ validate $? "enabled mysql"
 systemctl start mysqld &>>$log_file
 validate $? "started mysql"
 
-mysql_secure_installation --set-root-pass RoboShop@1 
+mysql_secure_installation --set-root-pass RoboShop@1 &>>$log_file
 validate $? "Settingup password for mysql DB as root is default user"
+
+end_time=$(date +%s)
+Total_time=$(($end_time-$start_time))
+    echo "Time taken for script to execute is $Total_time seconds" | tee -a $log_file

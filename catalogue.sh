@@ -84,7 +84,7 @@ validate $? "installing mongodb cilent to connect with mongodb DB"
 
 index=$(mongosh $Host_name --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 if [ $index -le 0 ]; then
-mongosh --host $Host_name </app/db/master-data.js
+mongosh --host $Host_name </app/db/master-data.js &>>$log_file
 else
     echo "Database is already loaded with Catalogue DB products"
 fi
