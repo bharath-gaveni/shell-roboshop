@@ -35,7 +35,7 @@ validate $? "Disabled the nodejs"
 dnf module enable nodejs:20 -y &>>$log_file
 validate $? "Enabled the nodejs 20"
 
-mkdir /app &>>$log_file
+mkdir -p /app &>>$log_file
 validate $? "created the app directory" 
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$log_file
