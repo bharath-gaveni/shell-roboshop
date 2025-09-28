@@ -6,7 +6,7 @@ Y="\e[0;33m"
 Dir_name=$PWD
 
 id=$(id -u)
-if [ $id - ne 0 ]; then
+if [ $id -ne 0 ]; then
     echo "please run this script with root user"
     exit 1
 fi
