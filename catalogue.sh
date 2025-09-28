@@ -7,7 +7,7 @@ Dir_name=$PWD
 
 id=$(id -u)
 if [ $id -ne 0 ]; then
-    echo "please run this script with root user"
+    echo -e "$R please run this script with root user $N"
     exit 1
 fi
 
