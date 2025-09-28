@@ -16,18 +16,18 @@ script_name=$(echo $0 | cut -d "." -f1)
 log_file=$log_folder/$script_name.log
 start_time=$(date +%s)
 mkdir -p $log_folder
-echo "script execution start time: $(date)" | tee -a &>>$log_file
+echo "script execution start time: $(date)" | tee -a $log_file
 
 validate() {
     if [ $1 -ne 0 ]; then
-        echo -e "$2 is $R FAILED $N" | tee -a &>>$log_file
+        echo -e "$2 is $R FAILED $N" | tee -a $log_file
         exit 1
     else
-        echo -e "$2 is $G SUCCESS $N" | tee -a &>>$log_file
+        echo -e "$2 is $G SUCCESS $N" | tee -a $log_file
     fi        
 }
 
-cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
+cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo $log_file
 validate $? "Copying the mongo.repo" 
 
 dnf install mongodb-org -y &>>$log_file
@@ -39,7 +39,7 @@ validate $? "enabled the mongodb"
 systemctl start mongod &>>$log_file
 validate $? "start mongodb"
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$log_file
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$log_file
 validate $? "Allowing the remote connections to mongodb"
 
 systemctl restart mongod &>>$log_file
