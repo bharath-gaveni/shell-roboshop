@@ -15,8 +15,8 @@ log_folder=/var/log/roboshop-script
 script_name=$(echo $0 | cut -d "." -f1)
 log_file=$log_folder/$script_name.log
 start_time=$(date +%s)
-echo "script execution start time: $(date)"
 mkdir -p $log_folder
+echo "script execution start time: $(date)" | tee -a &>>$log_file
 
 validate() {
     if [ $1 -ne 0 ]; then
@@ -27,27 +27,27 @@ validate() {
     fi        
 }
 
-cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo
-validate $? "Copying the mongo.repo"
+cp $Dir_name/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
+validate $? "Copying the mongo.repo" 
 
-dnf install mongodb-org -y 
-validate $? "installing mongodb"
+dnf install mongodb-org -y &>>$log_file
+validate $? "installing mongodb" 
 
-systemctl enable mongod 
-validate $? "enabled the mongodb"
+systemctl enable mongod &>>$log_file
+validate $? "enabled the mongodb" 
 
-systemctl start mongod
+systemctl start mongod &>>$log_file
 validate $? "start mongodb"
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$log_file
 validate $? "Allowing the remote connections to mongodb"
 
-systemctl restart mongod
+systemctl restart mongod &>>$log_file
 validate $? "Restart mongodb"
 
 end_time=$(date +%s)
 Total_time=$(($end_time-$start_time))
-echo "Total time taken to execute the script is $Total_time seconds"
+echo "Total time taken to execute the script is $Total_time seconds" | tee -a $log_file
 
 
 
