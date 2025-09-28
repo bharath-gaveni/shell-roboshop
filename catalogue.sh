@@ -83,7 +83,7 @@ validate $? "installing mongodb cilent to connect with mongodb DB"
 
 index=$(mongosh mongodb.bharathgaveni.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 if [ $index -le 0 ]; then
-mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js
+mongosh --host mongodb.bharathgaveni.fun </app/db/master-data.js
 else
     echo "Database is already loaded with Catalogue DB products"
 fi
